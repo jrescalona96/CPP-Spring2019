@@ -1,0 +1,184 @@
+function Game.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+push constant 10
+pop this 1
+push constant 251
+pop this 2
+push constant 220
+pop this 3
+push this 2
+push this 3
+push this 1
+call Player.new 3
+pop this 0
+push pointer 0
+return
+function Game.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call Player.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Game.run 1
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+push pointer 0
+call Game.drawBorder 1
+pop temp 0
+label WHILE_EXP0
+push local 0
+push constant 140
+eq
+not
+not
+if-goto WHILE_END0
+call Keyboard.keyPressed 0
+pop local 0
+push local 0
+push constant 130
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+call Player.moveLeft 1
+pop temp 0
+label IF_FALSE0
+push local 0
+push constant 131
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 0
+call Player.fire 1
+pop temp 0
+label IF_FALSE1
+push local 0
+push constant 132
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 0
+call Player.moveRight 1
+pop temp 0
+label IF_FALSE2
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function Game.drawBorder 2
+push argument 0
+pop pointer 0
+push constant 6
+pop local 0
+push constant 6
+pop local 1
+label WHILE_EXP0
+push local 0
+push constant 506
+gt
+not
+not
+if-goto WHILE_END0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push local 0
+push local 1
+call Screen.drawPixel 2
+pop temp 0
+push constant 1
+call Sys.wait 1
+pop temp 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+label WHILE_EXP1
+push local 1
+push constant 250
+gt
+not
+not
+if-goto WHILE_END1
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push local 0
+push local 1
+call Screen.drawPixel 2
+pop temp 0
+push constant 1
+call Sys.wait 1
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP1
+label WHILE_END1
+label WHILE_EXP2
+push local 0
+push constant 6
+lt
+not
+not
+if-goto WHILE_END2
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push local 0
+push local 1
+call Screen.drawPixel 2
+pop temp 0
+push constant 1
+call Sys.wait 1
+pop temp 0
+push local 0
+push constant 1
+sub
+pop local 0
+goto WHILE_EXP2
+label WHILE_END2
+label WHILE_EXP3
+push local 1
+push constant 6
+lt
+not
+not
+if-goto WHILE_END3
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push local 0
+push local 1
+call Screen.drawPixel 2
+pop temp 0
+push constant 1
+call Sys.wait 1
+pop temp 0
+push local 1
+push constant 1
+sub
+pop local 1
+goto WHILE_EXP3
+label WHILE_END3
+push constant 0
+return

@@ -1,0 +1,57 @@
+class Ammo
+{
+    field int x, y;
+
+    constructor Ammo new(int px, int py)
+    {
+        let x = px;
+        let y = py;
+        do fireAmmo();
+        return this;
+    }
+
+    method void dispose()
+    {
+      do Memory.deAlloc(this);
+      return;
+    }
+    
+    method void fireAmmo()
+    {
+        var int rad;
+        let rad = 2;
+        while(~(y<65))
+        {
+            do Screen.setColor(true);
+            do drawCir(x, y, rad, 1, 5);
+            do Screen.setColor(false);
+            do drawCir(x, y, rad, 1, 5);
+            let y = y - rad;
+        }
+        do Screen.setColor(true); //explosion
+        do drawCir(x, y, rad, 2, 100);
+        do drawCir(x, y, rad, 4, 120);
+        do drawCir(x, y, rad, 8, 120);
+        do drawCir(x, y, rad, 16, 120);
+        do drawCir(x, y, rad, 18, 120);
+
+        do Screen.setColor(false);
+        do drawCir(x, y, rad, 2, 20);
+        do drawCir(x, y, rad, 4, 20);
+        do drawCir(x, y, rad, 8, 20);
+        do drawCir(x, y, rad, 16, 20);
+        do drawCir(x, y, rad, 18, 60);
+        do drawCir(x, y, rad, 20, 60);
+
+        do dispose();
+        return;
+
+    }
+
+    method void drawCir(int ex, int ey, int r, int mult, int time)
+    {
+        do Sys.wait(time);
+        do Screen.drawCircle(x, y, r*mult);
+        return;
+    }
+}

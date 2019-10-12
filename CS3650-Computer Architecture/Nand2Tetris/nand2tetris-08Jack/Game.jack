@@ -1,0 +1,90 @@
+class Game
+{
+    field Player player;
+    field int size;
+    field int x;
+    field int y;
+
+    constructor Game new()
+    {     
+        let size = 10;
+        let x = 251;
+        let y = 220;
+        let player = Player.new(x, y, size);
+
+        return this;
+    }
+
+   method void dispose()
+   {
+      do player.dispose();
+      do Memory.deAlloc(this);
+      return;
+   }
+
+    method void run()
+    {
+        var int k;
+        let k = 0;
+        do drawBorder();
+        while ( ~(k=140) )
+        {
+            let  k = Keyboard.keyPressed();
+
+            if(k = 130) //left arrow
+            {
+                do player.moveLeft();
+            }
+            if(k = 131) //up arrow
+            {
+                do player.fire();
+            }
+            if(k = 132) //right arrow
+            {
+                do player.moveRight();
+            }
+        }
+        return;
+    }
+
+    method void drawBorder()
+    {
+        var int bx, by;
+        let bx = 6;
+        let by = 6;
+
+        while(~(bx>506)) 
+        {
+            // draw top
+            do Screen.setColor(true);
+            do Screen.drawPixel(bx,by);
+            do Sys.wait(1);
+            let bx = bx + 1;
+        }
+        while(~(by>250)) 
+        {
+            // draw right
+            do Screen.setColor(true);
+            do Screen.drawPixel(bx,by);
+            do Sys.wait(1);
+            let by = by + 1;
+        }
+        while(~(bx<6)) 
+        {
+            // draw bottom
+            do Screen.setColor(true);
+            do Screen.drawPixel(bx,by);
+            do Sys.wait(1);
+            let bx = bx - 1;
+        }
+        while(~(by<6)) 
+        {
+            // draw right
+            do Screen.setColor(true);
+            do Screen.drawPixel(bx,by);
+            do Sys.wait(1);
+            let by = by - 1;
+        }
+        return;
+    }
+}

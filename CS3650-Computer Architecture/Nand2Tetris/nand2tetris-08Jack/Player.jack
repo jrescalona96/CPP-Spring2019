@@ -1,0 +1,73 @@
+class Player
+{
+    field int x, y, size;
+
+    constructor Player new(int px, int py, int s)
+    {
+        let size = s;
+        let x = px;
+        let y = py;
+        do drawPlayer(true);
+        return this;
+    }
+   
+    method void dispose()
+    {
+      do Memory.deAlloc(this);
+      return;
+    }
+    
+    method void drawPlayer(boolean color) //draws the players initial position
+    {
+        do Screen.setColor(color);
+        do Screen.drawRectangle(x, y, x + size, y + size); //top box
+        do Screen.drawRectangle(x + size, y + size, x + (2*size), y + (2*size)); //right box
+        do Screen.drawRectangle(x , y + size, x + size, y + (2*size)); //mid box
+        do Screen.drawRectangle(x - size, y + size , x , y + (2*size)); //left box
+        return;
+    }
+
+    method void moveLeft() //move player 2px to left
+    {
+        if(~(x<15))
+        {
+            do drawPlayer(false);
+            let x = x - 2;    
+            do drawPlayer(true);        
+            do Sys.wait(10);
+        }
+        else //end of screen, draw same location
+        {
+            do drawPlayer(false);  
+            do drawPlayer(true);        
+            do Sys.wait(5);
+        }
+        return;
+    }
+
+    method void moveRight() //move player 2px to right
+    {
+        if(~(x>488))
+        {
+            do drawPlayer(false);
+            let x = x + 2;    
+            do drawPlayer(true);        
+            do Sys.wait(5);
+        }
+        else //end of screen, draw same location
+        {
+            do drawPlayer(false);  
+            do drawPlayer(true);        
+            do Sys.wait(5);
+        }
+
+        return;
+    }
+
+    method void fire()
+    {
+        var Ammo a;
+        let a = Ammo.new(x+5,y-3); //create ammo
+        return;
+    }
+}
